@@ -55,7 +55,7 @@ app.use("/entities", entity);
 const nearest = require("./api/nearest");
 app.use("/nearest", nearest);
 
-app.get("/tree", async function (req, res){
+app.get("/tree", helper.handlerWrapper(async function (req, res){
   const tree = new Tree();
   const treeId = req.query.tree_id;
   if(!treeId){
@@ -64,7 +64,7 @@ app.get("/tree", async function (req, res){
   }
   const treeDetail = await tree.getTreeById(treeId);
   res.status(200).json(treeDetail);
-});
+}));
 
 // Global error handler
 app.use(helper.errorHandler);
